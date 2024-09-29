@@ -1,0 +1,240 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Botão inicial */
+        .chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #8a01b4;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Container do chat oculto inicialmente */
+        .chat-container {
+            width: 450px;
+            height: 500px;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #8a01b4;
+            border-radius: 35px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .close-chat {
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            padding: 1px 10px;
+            color: white;
+            border-radius: 40px; 
+            background-color: #8a01b4;
+        }
+
+        .chat-header-content {
+            display: flex;
+            align-items: center;
+            margin-left: 20px; 
+        }
+
+        .chat-header img {
+            width: 34px;
+            height: 34px;
+            margin-right: 10px;
+        }
+
+        .chat-box {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: white;
+            border-left: 1px solid #8a01b4;
+            border-right: 1px solid #8a01b4;
+        }
+
+        .message-form {
+            display: flex;
+            padding: 10px;
+            background-color: #f9f9f9; 
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            border-left: 1px solid #8a01b4;
+            border-right: 1px solid #8a01b4;
+            border-bottom: 1px solid #8a01b4;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            outline: none;
+            border-radius: 20px 0 0 20px;
+            font-size: 16px;
+        }
+
+        .send-button {
+            background-color: #8a01b4;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            color: white;
+            font-size: 20px;
+            border-radius: 0 20px 20px 0;
+        }
+
+        .send-button:hover {
+            background-color: #6a008a;
+        }
+
+        .send-button svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .chat-message {
+            display: inline-block;
+            max-width: 80%;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            clear: both;
+        }
+
+        .chat-message.user {
+            background-color: #8a01b4;
+            color: white;
+            text-align: right;
+            float: right;
+            border-bottom-right-radius: 0;
+        }
+
+        .chat-message.bot {
+            background-color: #e0e0e0;
+            color: black;
+            text-align: left;
+            float: left;
+            border-bottom-left-radius: 0;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Botão inicial para abrir o chat -->
+<button class="chat-button" onclick="toggleChat()">Fale conosco!</button>
+
+<div class="chat-container" id="chat-container">
+
+    <button class="close-chat" onclick="toggleChat()">✖</button>
+
+    <div class="chat-header">
+        <div class="chat-header-content">
+            <img src="{% static 'images/chat_icone.png' %}" alt="Ícone de Atendimento">
+            <h3>Atendimento Formalize</h3>
+        </div>
+    </div>
+    
+    <div class="chat-box" id="chat-box">
+        <!-- Onde as mensagens aparecem -->
+    </div>
+
+    <div class="message-form">
+        <input type="text" id="user-message" class="message-input" placeholder="Digite sua mensagem...">
+        <button class="send-button" onclick="sendMessage()">
+            <!-- Ícone de enviar -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M2 21l21-9-21-9v7l15 2-15 2v7z"/>
+            </svg>
+        </button>
+    </div>
+</div>
+
+<script>
+    // Função para alternar entre a aba e o chat completo
+    function toggleChat() {
+        const chatContainer = document.getElementById('chat-container');
+        const chatButton = document.querySelector('.chat-button');
+        if (chatContainer.style.display === 'none' || chatContainer.style.display === '') {
+            chatContainer.style.display = 'flex';           // Mostra o chat
+            chatButton.style.display = 'none';              // Esconde o botão
+        } else {
+            chatContainer.style.display = 'none';
+            chatButton.style.display = 'block';
+        }
+    }
+
+    function addMessageToChat(message, sender) {
+        const chatBox = document.getElementById('chat-box');
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('chat-message', sender);
+
+        let formattedMessage = message.replace(/\n/g, '<br>');
+        formattedMessage = formattedMessage.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
+        messageElement.innerHTML = formattedMessage;
+
+        chatBox.appendChild(messageElement);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function sendMessage() {
+        const userMessage = document.getElementById('user-message').value;
+
+        if (userMessage.trim() === "") {
+            return;
+        }
+
+        addMessageToChat(userMessage, 'user');               // Adiciona a mensagem do usuário à interface
+
+        document.getElementById('user-message').value = '';  // Limpa o campo de input
+
+        fetch('http://localhost:8000/chatbot/v1/', {         // Envia a mensagem para o servidor
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ mensagem: userMessage })
+        })
+        .then(response => response.json())
+        .then(data => {
+            addMessageToChat(data.resposta, 'bot');         // Adiciona a resposta do bot à interface
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            addMessageToChat("Erro ao se comunicar com o servidor.", 'bot');
+        });
+    }
+</script>
+
+</body>
+</html>

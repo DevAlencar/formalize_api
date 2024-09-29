@@ -2,6 +2,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.shortcuts import render
 
 class ChatBotView(APIView):
     state_links = {
@@ -63,3 +64,7 @@ class ChatBotView(APIView):
         )
 
         return Response({"resposta": resposta}, status=status.HTTP_200_OK)
+
+class ChatBotPageView(APIView):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'chatbot/index.html')

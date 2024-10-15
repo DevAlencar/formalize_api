@@ -124,3 +124,18 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Session configuration
+
+## Configura a sessão para expirar quando o navegador for fechado
+#SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+## Tempo de expiração da sessão (em segundos) após a última interação
+#SESSION_COOKIE_AGE = 1800  # 30 minutos
+
+# Armazenar as sessões em cache (memória volátil)
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+
+# Ou para testar usando a memória local (desaparece ao reiniciar o servidor)
+#SESSION_ENGINE = 'django.contrib.sessions.backends.file'

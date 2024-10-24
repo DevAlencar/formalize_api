@@ -116,9 +116,33 @@ class ChatBotStateMachine:
     def _handle_certidao_sefaz(self, user_input):
         self.state = 'menu'
         sefaz_links = {
-            "São Paulo": "https://efisco.sefaz.sp.gov.br/",
+            "Acre": "http://www.sefaz.ac.gov.br",
+            "Alagoas": "https://www.sefaz.al.gov.br",
+            "Amapá": "http://www.sefaz.ap.gov.br",
+            "Amazonas": "https://online.sefaz.am.gov.br",
+            "Bahia": "http://www.sefaz.ba.gov.br",
+            "Ceará": "https://www.sefaz.ce.gov.br",
+            "Distrito Federal": "http://www.fazenda.df.gov.br",
+            "Espírito Santo": "https://internet.sefaz.es.gov.br",
+            "Goiás": "http://www.sefaz.go.gov.br",
+            "Maranhão": "https://sistemas.sefaz.ma.gov.br",
+            "Mato Grosso": "http://www.sefaz.mt.gov.br",
+            "Mato Grosso do Sul": "http://www.sefaz.ms.gov.br",
             "Minas Gerais": "https://www.sp.gov.br/sefaz",
-            # Adicione mais estados conforme necessário
+            "Pará": "https://app.sefa.pa.gov.br",
+            "Paraíba": "https://www.sefaz.pb.gov.br",
+            "Paraná": "http://www.fazenda.pr.gov.br",
+            "Pernambuco": "https://www.sefaz.pe.gov.br",
+            "Piauí": "https://www.sefaz.pi.gov.br",
+            "Rio de Janeiro": "http://www.fazenda.rj.gov.br",
+            "Rio Grande do Norte": "http://www.set.rn.gov.br",
+            "Rio Grande do Sul": "https://www.sefaz.rs.gov.br",
+            "Rondônia": "https://portalcontribuinte.sefin.ro.gov.br",
+            "Roraima": "https://www.sefaz.rr.gov.br",
+            "Santa Catarina": "https://www.sef.sc.gov.br",
+            "São Paulo": "https://efisco.sefaz.sp.gov.br",
+            "Sergipe": "https://www.sefaz.se.gov.br",
+            "Tocantins": "http://www.sefaz.to.gov.br"
         }
 
         link = sefaz_links.get(user_input, "Link não encontrado para o estado informado.")

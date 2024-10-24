@@ -6,13 +6,19 @@ from django.views.decorators.csrf import csrf_exempt
 from .state_machine import ChatBotStateMachine
 
 class ChatBotView(APIView):
-
+    def get(self,request):
+        return Response({
+            "message": 
+                """Olá! Escolha uma das opções abaixo para continuar:
+                1. Abrir cnpj
+                2. Emitir certidões."""
+        })
     @method_decorator(csrf_exempt)
     def post(self, request, *args, **kwargs):
         user_input = request.data.get("mensagem", "")
         
         # Recupera o estado atual da sessão ou inicia com 'start'
-        state = request.session.get('chatbot_state', 'start')
+        state = request.session.get('chatbot_state', 'menu')
         
         # Inicializa a máquina de estados com o estado atual
         bot = ChatBotStateMachine(state)
@@ -23,4 +29,4 @@ class ChatBotView(APIView):
         # Atualiza o estado na sessão
         request.session['chatbot_state'] = new_state
         
-        return Response({"resposta": resposta}, status=status.HTTP_200_OK)
+        return Response({"message": resposta}, status=status.HTTP_200_OK)

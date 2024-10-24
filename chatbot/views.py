@@ -7,12 +7,13 @@ from .state_machine import ChatBotStateMachine
 
 class ChatBotView(APIView):
     def get(self,request):
-        return Response({
-            "message": 
-                """Olá! Escolha uma das opções abaixo para continuar:
-                1. Abrir cnpj
-                2. Emitir certidões."""
-        })
+        answer = "Olá! Escolha uma das opções abaixo para continuar:"
+        questions = [
+            {"body": "Abrir CNPJ"},
+            {"body": "Emitir certidões"}
+        ]
+        return Response({"answer": answer, "questions": questions})
+
     @method_decorator(csrf_exempt)
     def post(self, request, *args, **kwargs):
         user_input = request.data.get("mensagem", "")
@@ -24,9 +25,9 @@ class ChatBotView(APIView):
         bot = ChatBotStateMachine(state)
         
         # Processa o input e gera a resposta de acordo com o estado
-        resposta, new_state = bot.handle_flow(user_input)
+        answer, questions, new_state = bot.handle_flow(user_input)
         
         # Atualiza o estado na sessão
         request.session['chatbot_state'] = new_state
         
-        return Response({"message": resposta}, status=status.HTTP_200_OK)
+        return Response({"answer": answer, "questions": questions}, status=status.HTTP_200_OK)

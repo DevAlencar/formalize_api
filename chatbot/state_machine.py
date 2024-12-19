@@ -2,9 +2,10 @@
 # chatbot/state_machine.py
 from typing import Dict, Type
 from .states import ChatState, StateResponse
+from .state_handlers.certidao.certidaoStateHandler import certidaoStateHandler
 from .state_handlers.base import BaseState
 from .state_handlers.menu import MenuState
-from .state_handlers.certidoes import ExplainCertidoesState
+from .state_handlers.certidao.certidoes import ExplainCertidoesState
 from .state_handlers.sefaz import SefazState
 
 class ChatBotStateMachine:
@@ -13,6 +14,7 @@ class ChatBotStateMachine:
             ChatState.MENU: MenuState,
             ChatState.EXPLAIN_CERTIDOES: ExplainCertidoesState,
             ChatState.CERTIDAO_SEFAZ: SefazState,
+            ChatState.CERTIDAO_STATE_HANDLER: certidaoStateHandler,
         }
         self.current_state = ChatState.MENU
     

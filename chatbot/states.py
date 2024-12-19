@@ -8,6 +8,7 @@ class ChatState(Enum):
     EXPLAIN_CERTIDOES = "explain_certidoes" 
     CERTIDAO_SEFAZ = "certidao_sefaz"
     START_CNPJ = "start_cnpj_process"
+    CERTIDAO_STATE_HANDLER = "certidao_state_handler"
 
 @dataclass
 class Question:

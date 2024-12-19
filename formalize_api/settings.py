@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-yy%e%l*&=+#w5y)^)19$lva9g=*(2^w4i1^($9g3(p=scaj5@6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -52,6 +52,15 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+# CORS settings
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:5500",  # VS Code Live Server default
+    "http://localhost:5500",
+]
+
+CORS_ALLOW_CREDENTIALS = True  # Important for session handling
 
 ROOT_URLCONF = 'formalize_api.urls'
 
@@ -137,7 +146,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #SESSION_COOKIE_AGE = 1800  # 30 minutos
 
 # Armazenar as sessões em cache (memória volátil)
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SECURE = False  # Set to True in production with HTTPS
 
 # Ou para testar usando a memória local (desaparece ao reiniciar o servidor)
 #SESSION_ENGINE = 'django.contrib.sessions.backends.file'

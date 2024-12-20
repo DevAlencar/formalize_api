@@ -28,6 +28,7 @@ class MenuState(BaseState):
                 ChatState.START_CNPJ
             )
         elif '2' in user_input:
+            print("Entrou no 2")
             return self.create_response(
                 "Existem várias certidões negativas que podem ser emitidas, sobre qual deseja saber mais?",
                 MENU_OPTIONS['certidoes'],

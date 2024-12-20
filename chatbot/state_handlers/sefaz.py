@@ -6,10 +6,9 @@ from ..data import SEFAZ_LINKS
 class SefazState(BaseState):
     def handle(self, user_input: str) -> StateResponse:
         estados = list(SEFAZ_LINKS.keys())
-        print(estados)
         
         estadoEscolhido = estados[int(user_input) - 1]
-        print(estadoEscolhido)
+
         if estadoEscolhido in SEFAZ_LINKS:
             return self.create_response(
                 f"O link para a SEFAZ de {estadoEscolhido} é: {SEFAZ_LINKS[estadoEscolhido]}",

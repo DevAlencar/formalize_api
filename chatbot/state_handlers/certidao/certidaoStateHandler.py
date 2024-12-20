@@ -10,7 +10,7 @@ class certidaoStateHandler(BaseState):
             return self.create_response(
                 "Escolha uma das opções abaixo:",
                 MENU_OPTIONS['main'],
-                ChatState.CERTIDAO_STATE_HANDLER
+                ChatState.MENU
             )
         elif '2' in user_input:
             return self.create_response(

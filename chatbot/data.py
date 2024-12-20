@@ -10,7 +10,6 @@ CERTIDOES_LINKS: Dict[str, str] = {
     'antecedentes criminais': 'https://www.tjpe.jus.br/antecedentescriminaiscliente/xhtml/manterPessoa/tipoPessoa.xhtml',
     'antecedentes_criveis': 'https://www.tjpe.jus.br/certidaopje/xhtml/main.xhtml',
 }
-
 SEFAZ_LINKS: Dict[str, str] = {
     "Acre": "http://www.sefaz.ac.gov.br",
     "Alagoas": "https://www.sefaz.al.gov.br",

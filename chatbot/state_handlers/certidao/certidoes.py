@@ -3,6 +3,7 @@ from typing import Dict
 from ..base import BaseState
 from ...states import ChatState, StateResponse
 from ...data import CERTIDOES_LINKS, MENU_OPTIONS
+from ...data import SEFAZ_LINKS
 
 class ExplainCertidoesState(BaseState):
     def handle(self, user_input: str) -> StateResponse:
@@ -20,10 +21,12 @@ class ExplainCertidoesState(BaseState):
         if user_input in certidoes:
             cert_key, cert_name = certidoes[user_input]
             
+            estados = list(SEFAZ_LINKS.keys())
+
             if cert_key == 'sefaz':
                 return self.create_response(
                     "Informe o estado que deseja buscar:",
-                    ["Desejo retornar ao menu inicial"],
+                    estados,
                     ChatState.CERTIDAO_SEFAZ
                 )
             
@@ -33,7 +36,7 @@ class ExplainCertidoesState(BaseState):
             # com a transição de estados. Como esse estado não foi implementado, vamos retornar ao menu inicial.
             return self.create_response(
                 f"Aqui está o link para emitir a {cert_name}: {link}",
-                ["Desejo retornar ao menu inicial", "Desejo tentar outro estado"],
+                ["Desejo retornar ao menu inicial", "Desejo tentar uma outra certidão"],
                 ChatState.CERTIDAO_STATE_HANDLER
             )
             

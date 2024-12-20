@@ -20,7 +20,7 @@ class certidaoStateHandler(BaseState):
             )   
         return self.create_response(
             "Informe uma opção válida.",
-                ["Desejo retornar ao menu inicial", "Desejo tentar outro estado"],
+                ["Desejo retornar ao menu inicial", "Desejo tentar uma outra certidão"],
                 ChatState.CERTIDAO_STATE_HANDLER
         )
             

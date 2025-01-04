@@ -12,9 +12,9 @@ class MenuState(BaseState):
         )
         
     def handle(self, user_input: str) -> StateResponse:
-        if not user_input:  # Se não houver input, retorna menu inicial
+        if not user_input:# Se não houver input, retorna menu inicial
             return self.get_initial_options()
-            
+
         if '1' in user_input:
             return self.create_response(
                 "Para abrir um CNPJ, você deve seguir os seguintes passos:",

@@ -1,4 +1,4 @@
-
+from django.shortcuts import render
 # chatbot/views.py
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -19,7 +19,7 @@ class ChatBotView(APIView):
 
     @method_decorator(csrf_exempt)
     def post(self, request, *args, **kwargs):
-        user_input = request.data.get("body", "")
+        user_input = request.data.get("mensagem", "")
         
         bot = ChatBotStateMachine()
         if 'chatbot_state' in request.session:
@@ -32,3 +32,8 @@ class ChatBotView(APIView):
             "answer": response.answer,
             "questions": [{"body": q.body} for q in response.questions]
         }, status=status.HTTP_200_OK)
+
+
+class ChatBotPageView(APIView):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'chatbot/index.html')

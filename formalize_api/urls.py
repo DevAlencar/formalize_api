@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('chatbot/', include('chatbot.urls')),
     path('cnpjmanager/', include('CNPJManager.urls')),
+    path('accounts/', include('allauth.urls')),
 ]

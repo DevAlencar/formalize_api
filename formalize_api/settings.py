@@ -41,7 +41,26 @@ INSTALLED_APPS = [
     'chatbot',
     'CNPJManager',
     'corsheaders',
+    
+    # Authentication
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
+
+# Authentication backends
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# Django AllAuth settings
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_REQUIRED = True
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -52,8 +71,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
+    
 ]
-
 
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
@@ -81,6 +101,24 @@ TEMPLATES = [
         },
     },
 ]
+
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_URL = 'logout'
+LOGOUT_REDIRECT_URL = 'login'
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': '209711196051-nkuohan1mu02fsbesr5om35ee8lg5lk1.apps.googleusercontent.com',
+            'secret': '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',
+            'key': '209711196051-nkuohan1mu02fsbesr5om35ee8lg5lk1.apps.googleusercontent.com'
+        }
+    }
+}
 
 WSGI_APPLICATION = 'formalize_api.wsgi.application'
 

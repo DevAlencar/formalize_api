@@ -9,7 +9,7 @@ from .managers import UserManager
 class User(AbstractUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True, verbose_name=_('Email Address'))
     otp_secret = models.CharField(max_length=32, unique=True, verbose_name=_('OTP Secret'), default=None, null=True, blank=True)
-    cpf = models.CharField(max_length=11, unique=True, verbose_name=_('CPF'), default=None) #todo verificação de CPF
+    cpf = models.CharField(max_length=11, unique=True, verbose_name=_('CPF'), default=None)
     is_verified = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'

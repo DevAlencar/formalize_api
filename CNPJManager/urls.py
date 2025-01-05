@@ -7,6 +7,5 @@ router.register(r'viabilidades', ViabilidadeEmpresaViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('accounts/', include('allauth.urls')),
 
 ]

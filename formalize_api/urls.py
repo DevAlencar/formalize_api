@@ -19,7 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('chatbot/', include('chatbot.urls')),
-    path('cnpjmanager/', include('CNPJManager.urls')),
-    path('accounts/', include('allauth.urls')),
+    path('api/v1/accounts/', include('accounts.urls')),
+    path('api/v1/chatbot/', include('chatbot.urls')),
+    path('api/v1/cnpjmanager/', include('CNPJManager.urls')),
 ]

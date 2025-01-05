@@ -28,3 +28,8 @@ def send_otp(email):
 
     send_email = EmailMessage(subject=subject, body=email_body, from_email=from_email, to=[email])
     send_email.send(fail_silently=True)
+
+
+def send_normal_email(data):
+    send_email = EmailMessage(subject=data['subject'], body=data['email_body'], from_email=settings.EMAIL_HOST_USER, to=[data['to_email']])
+    send_email.send()

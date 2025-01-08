@@ -184,8 +184,27 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Armazenar as sessões em cache (memória volátil)
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_AGE = 300  # 5 minutes in seconds
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_SAVE_EVERY_REQUEST = True
 SESSION_COOKIE_SAMESITE = 'Lax'
 SESSION_COOKIE_SECURE = False  # Set to True in production with HTTPS
 
 # Ou para testar usando a memória local (desaparece ao reiniciar o servidor)
 #SESSION_ENGINE = 'django.contrib.sessions.backends.file'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'chatbot': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    },
+}

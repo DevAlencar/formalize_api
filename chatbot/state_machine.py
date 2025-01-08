@@ -7,6 +7,7 @@ from .state_handlers.base import BaseState
 from .state_handlers.menu import MenuState
 from .state_handlers.certidao.certidoes import ExplainCertidoesState
 from .state_handlers.sefaz import SefazState
+from .state_handlers.cnpj.StartCnpj import StartCNPJState
 
 class ChatBotStateMachine:
     def __init__(self):
@@ -15,6 +16,7 @@ class ChatBotStateMachine:
             ChatState.EXPLAIN_CERTIDOES: ExplainCertidoesState,
             ChatState.CERTIDAO_SEFAZ: SefazState,
             ChatState.CERTIDAO_STATE_HANDLER: certidaoStateHandler,
+            ChatState.START_CNPJ: StartCNPJState
         }
         self.current_state = ChatState.MENU
     

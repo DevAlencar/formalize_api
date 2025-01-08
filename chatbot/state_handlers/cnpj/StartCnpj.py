@@ -7,7 +7,7 @@ class StartCNPJState(BaseState):
     def handle(self, user_input: str) -> StateResponse:
         
         return self.create_response(
-            "Código inválido. Por favor, tente novamente:",
-            [],
+            "Escolha uma das opções abaixo:",
+            MENU_OPTIONS['main'],
             ChatState.MENU
         )

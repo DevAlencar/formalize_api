@@ -17,18 +17,13 @@ class MenuState(BaseState):
 
         if '1' in user_input:
             return self.create_response(
-                "Para abrir um CNPJ, você deve seguir os seguintes passos:",
+                "Ótimo! Acesse o link a seguir para prosseguir com a abertura de CNPJ: https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/quero-abrir-um-negocio/como-abrir-uma-empresa",
                 [
-                    "Definir a natureza jurídica da empresa",
-                    "Fazer o registro na Junta Comercial do seu estado",
-                    "Realizar a inscrição no site da Receita Federal", 
-                    "Deseja saber mais sobre algum estado específico?",
-                    "Deseja voltar ao menu inicial?"
+                    "Desejo voltar ao menu inicial."
                 ],
                 ChatState.START_CNPJ
             )
         elif '2' in user_input:
-            print("Entrou no 2")
             return self.create_response(
                 "Existem várias certidões negativas que podem ser emitidas, sobre qual deseja saber mais?",
                 MENU_OPTIONS['certidoes'],

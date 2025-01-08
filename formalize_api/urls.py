@@ -23,3 +23,4 @@ urlpatterns = [
     path('api/v1/chatbot/', include('chatbot.urls')),
     path('api/v1/cnpjmanager/', include('CNPJManager.urls')),
 ]
+    

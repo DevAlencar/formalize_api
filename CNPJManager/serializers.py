@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import ViabilidadeEmpresa, Socio
+from .models import ViabilidadeEmpresa, Socio, Payment
 
 class SocioSerializer(serializers.ModelSerializer):
     class Meta:
@@ -66,3 +66,8 @@ class ViabilidadeEmpresaSerializer(serializers.ModelSerializer):
             Socio.objects.create(viabilidade=viabilidade, **socio_data)
         
         return viabilidade
+    
+class PaymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Payment
+        fields = ["cliente_id", "valor", "status"]

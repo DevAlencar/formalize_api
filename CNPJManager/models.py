@@ -117,3 +117,9 @@ class Socio(models.Model):
     is_administrador = models.BooleanField("É administrador?")
     endereco = models.TextField()
     qtd_quotas = models.IntegerField()
+    
+class Payment(models.Model):
+    cliente_id = models.IntegerField()  # ID do cliente
+    valor = models.DecimalField(max_digits=10, decimal_places=2)  # Valor da transação
+    status = models.CharField(max_length=50)  # Status do pagamento (approved, pending, etc.)
+    created_at = models.DateTimeField(auto_now_add=True)  # Data e hora do registro

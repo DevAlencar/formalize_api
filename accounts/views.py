@@ -6,6 +6,8 @@ from rest_framework.permissions import IsAuthenticated
 import pyotp
 from django.utils.encoding import smart_str, DjangoUnicodeDecodeError
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from rest_framework.views import APIView
+
 from .models import OneTimePassword, User
 from .serializers import UserRegisterSerializer, OTPVerifySerializer, OTPResendSerializer, LoginSerializer, \
     PasswordResetRequestSerializer, SetNewPasswordSerializer, LogoutUserSerializer
@@ -86,7 +88,7 @@ class PasswordResetRequestView(GenericAPIView):
         return Response({'message':'A link has been sent to your email'}, status=status.HTTP_200_OK)
 
 
-class PasswordResetConfirm(GenericAPIView):
+class PasswordResetConfirm(APIView):
     def get(self, request, uidb64, token):
         try:
             padded_uidb64 = uidb64 + '=' * ((4 - len(uidb64) % 4) % 4)

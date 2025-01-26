@@ -8,15 +8,20 @@ from .serializers import PaymentSerializer  # Serializer para validação e regi
 import os
 from mercadopago import SDK
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 
 class ViabilidadeEmpresaViewSet(viewsets.ModelViewSet):
     queryset = ViabilidadeEmpresa.objects.all()
     serializer_class = ViabilidadeEmpresaSerializer
 
 class PagamentoViewSet(viewsets.ViewSet):
+    permission_classes = [IsAuthenticated]
+    
     def list(self, request):
-        link = get_link()
-        print(link)
+        user = request.user
+        
+        link = get_link(user)
+
         return Response({"link": link})
 
 
@@ -31,7 +36,7 @@ class MercadoPagoWebhookViewSet(viewsets.ViewSet):
             data = request.data
             topic = data.get("type")  # Tipo de evento: "payment", "plan", etc.
             resource_id = data.get("data", {}).get("id")  # ID do pagamento
-
+            #print("resource_id: ",resource_id)
             if topic == "payment":
                 # Consultar os detalhes do pagamento na API do Mercado Pago
                 payment_info = mp.payment().get(resource_id)
@@ -39,6 +44,8 @@ class MercadoPagoWebhookViewSet(viewsets.ViewSet):
 
                 # Verificar se o pagamento foi aprovado
                 if payment_data.get("status") == "approved":
+                    print("Pagamento aprovado!")
+                    print(payment_data)
                     # Montar os dados para salvar no banco
                     payment_payload = {
                         "cliente_id": payment_data.get("metadata", {}).get("cliente_id"),  # Metadado customizado
@@ -58,5 +65,3 @@ class MercadoPagoWebhookViewSet(viewsets.ViewSet):
         except Exception as e:
             print(f"Erro no webhook: {e}")
             return Response({"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-# Create your views here.

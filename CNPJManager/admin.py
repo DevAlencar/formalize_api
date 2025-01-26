@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import ViabilidadeEmpresa, Payment
 
-# Register your models here.
+admin.site.register(ViabilidadeEmpresa)
+admin.site.register(Payment)

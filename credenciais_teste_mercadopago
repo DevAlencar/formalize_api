@@ -1,0 +1,70 @@
+VENDEDOR:
+	USUARIO:	TESTUSER373975808
+	SENHA:		ADCE4A00#5099#4cef#
+
+COMPRADOR:
+	USUARIO:	TESTUSER1005073586
+	http {
+        include mime.types;
+
+        server {
+            listen 80;
+    server_name viniciuslevi.dev.br www.viniciuslevi.dev.br;
+        root /data/www;
+
+        index index.html index.htm;
+
+        location /second {
+                root /data/www;
+        }
+}
+}OPRcxqgOdZ:		SENHA
+
+CARTÕES:
+
+	NUMERO:	5031 4332 1540 6351
+	COD: 123
+	VENCIMENTO: 11/25
+	CPF: 12345678909
+	APRO
+	
+	
+Pagamento aprovado
+	
+(CPF) 12345678909
+OTHE
+	
+Recusado por erro geral
+	
+(CPF) 12345678909
+CONT
+	
+Pagamento pendente
+	
+-
+CALL
+	
+Recusado com validação para autorizar
+	
+-
+FUND
+	
+Recusado por quantia insuficiente
+	
+-
+SECU
+	
+Recusado por código de segurança inválido
+	
+-
+EXPI
+	
+Recusado por problema com a data de vencimento
+	
+-
+FORM
+	
+Recusado por erro no formulário
+	
+-
+

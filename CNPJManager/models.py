@@ -123,3 +123,6 @@ class Payment(models.Model):
     valor = models.DecimalField(max_digits=10, decimal_places=2)  # Valor da transação
     status = models.CharField(max_length=50)  # Status do pagamento (approved, pending, etc.)
     created_at = models.DateTimeField(auto_now_add=True)  # Data e hora do registro
+    
+    def __str__(self):
+        return f"Pagamento de R${self.valor} para o cliente {self.cliente_id}"

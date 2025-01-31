@@ -206,7 +206,8 @@
 </div>
 
 <script>
-    const API_URL = 'http://localhost:8000/chatbot/v1/';
+    const API_URL = 'http://127.0.0.1:8000/api/v1/chatbot/';
+    //const API_URL = 'http://35.183.59.138:8000/api/v1/chatbot/'
 
     function toggleChat() {
         const chatContainer = document.getElementById('chat-container');
@@ -225,8 +226,10 @@
         const chatBox = document.getElementById('chat-box');
         chatBox.innerHTML = '';
 
-        // Faz uma requisição GET para obter a mensagem inicial do bot
-        fetch(API_URL)
+        fetch(API_URL, {
+            method: 'GET',
+            credentials: 'include',  // Habilita o envio de cookies
+        })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Erro ao conectar com o servidor.');
@@ -234,6 +237,7 @@
                 return response.json();
             })
             .then(data => {
+                console.log("Resposta da API:", data); // <-- Adicione esta linha
                 addMessage(data.answer, 'bot', data.questions);
             })
             .catch(error => {
@@ -291,6 +295,7 @@
             headers: {
                 'Content-Type': 'application/json',
             },
+            credentials: 'include',
             body: JSON.stringify({ mensagem: userInput }),
         })
             .then(response => {

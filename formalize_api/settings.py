@@ -220,6 +220,7 @@ CSRF_COOKIE_SAMESITE = None     # Also set for CSRF token
 CSRF_COOKIE_SECURE = False         # Set to True when SameSite is None
 CSRF_COOKIE_DOMAIN = None
 SESSION_COOKIE_HTTPONLY = False
+SESSION_COOKIE_PARTITIONED = True  # Add Partitioned attribute
 
 # Ou para testar usando a memória local (desaparece ao reiniciar o servidor)
 #SESSION_ENGINE = 'django.contrib.sessions.backends.file'

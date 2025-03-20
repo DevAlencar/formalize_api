@@ -215,6 +215,8 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_COOKIE_SAMESITE = 'Lax'
 SESSION_COOKIE_SECURE = False  # Set to True in production with HTTPS
+CSRF_COOKIE_SAMESITE = 'None'     # Also set for CSRF token
+CSRF_COOKIE_SECURE = True         # Set to True when SameSite is None
 
 # Ou para testar usando a memória local (desaparece ao reiniciar o servidor)
 #SESSION_ENGINE = 'django.contrib.sessions.backends.file'

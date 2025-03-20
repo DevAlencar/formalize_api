@@ -18,7 +18,12 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-load_dotenv()
+load_dotenv(os.path.join(BASE_DIR, '.env'), override=True)
+
+
+# Add this for debugging:
+print(f"Looking for .env at: {os.path.join(BASE_DIR, '.env')}")
+print(f"File exists: {os.path.exists(os.path.join(BASE_DIR, '.env'))}")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -69,7 +74,7 @@ CORS_ALLOW_CREDENTIALS = True  # Important for session handling
 
 ROOT_URLCONF = 'formalize_api.urls'
 
-
+print(os.getenv('DB_NAME'))
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_PORT = os.getenv('EMAIL_PORT')

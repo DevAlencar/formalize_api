@@ -213,10 +213,13 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_AGE = 300  # 5 minutes in seconds
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_SAVE_EVERY_REQUEST = True
-SESSION_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SAMESITE = None
 SESSION_COOKIE_SECURE = False  # Set to True in production with HTTPS
-CSRF_COOKIE_SAMESITE = 'None'     # Also set for CSRF token
-CSRF_COOKIE_SECURE = True         # Set to True when SameSite is None
+SESSION_COOKIE_DOMAIN = None
+CSRF_COOKIE_SAMESITE = None     # Also set for CSRF token
+CSRF_COOKIE_SECURE = False         # Set to True when SameSite is None
+CSRF_COOKIE_DOMAIN = None
+SESSION_COOKIE_HTTPONLY = False
 
 # Ou para testar usando a memória local (desaparece ao reiniciar o servidor)
 #SESSION_ENGINE = 'django.contrib.sessions.backends.file'

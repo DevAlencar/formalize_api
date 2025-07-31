@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: formalize_mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: formalize_db
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_USER: formalize_user
+      MYSQL_PASSWORD: formalize_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  web:
+    build: .
+    container_name: formalize_api
+    restart: always
+    ports:
+      - "8001:8001"
+    environment:
+      - DEBUG=False
+      - DB_NAME=formalize_db
+      - DB_USER=formalize_user
+      - DB_PASSWORD=formalize_password
+      - DB_HOST=db
+      - DB_PORT=3306
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - .:/app
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8001"
+
+volumes:
+  mysql_data:

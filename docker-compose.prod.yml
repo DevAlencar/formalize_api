@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: formalize_mysql_prod
+    restart: always
+    environment:
+      MYSQL_DATABASE: formalize_db
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-strongrootpassword123}
+      MYSQL_USER: ${DB_USER:-formalize_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-formalize_password}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data_prod:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./mysql.conf:/etc/mysql/conf.d/mysql.conf
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    command: --default-authentication-plugin=mysql_native_password
+
+  web:
+    build: .
+    container_name: formalize_api_prod
+    restart: always
+    ports:
+      - "8001:8001"
+    environment:
+      - DJANGO_SETTINGS_MODULE=formalize_api.settings_production
+      - DEBUG=False
+      - DB_NAME=${DB_NAME:-formalize_db}
+      - DB_USER=${DB_USER:-formalize_user}
+      - DB_PASSWORD=${DB_PASSWORD:-formalize_password}
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD:-strongrootpassword123}
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - static_files:/app/staticfiles
+      - media_files:/app/mediafiles
+      - ./logs:/var/log/gunicorn
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --noinput &&
+             gunicorn --config gunicorn.conf.py formalize_api.wsgi:application"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/admin/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  mysql_data_prod:
+  static_files:
+  media_files:

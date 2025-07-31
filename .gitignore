@@ -11,5 +11,5 @@ __pycache__/
 db.sqlite3
 
 .env
-
+.env*
 credenciais_teste_mercadopago
